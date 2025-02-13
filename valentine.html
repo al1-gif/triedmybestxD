@@ -1,0 +1,139 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be My Valentine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Great Vibes', cursive;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      background-image: url('https://i.imgur.com/mE2Wj4o.jpeg');
+      background-size: cover;
+      background-position: center;
+      transition: all 1s;
+      cursor: none; /* Hides the default cursor */
+    }
+    h1, p {
+      font-size: 2.5rem;
+      color: #ff0066;
+      text-align: center;
+    }
+    button {
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 10px;
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+    #yes-btn {
+      background-color: #ff66b2;
+      color: white;
+    }
+    #no-btn {
+      background-color: #cccccc;
+      color: black;
+      position: absolute;
+    }
+    #message-slide {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    video {
+      width: 90%;
+      max-width: 700px;
+      border-radius: 10px;
+    }
+    #love-message {
+      font-size: 2rem;
+      color: #ff0066;
+      margin-top: 20px;
+      text-align: center;
+    }
+    /* Custom cursor styling */
+    .cursor {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      background-image: url('https://i.imgur.com/g3BjU6Y.png'); /* Heart-shaped cursor */
+      background-size: cover;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <div id="valentine-slide">
+    <h1>Will You Be My Valentine? 👀</h1>
+    <button id="yes-btn">Yes</button>
+    <button id="no-btn">No</button>
+  </div>
+
+  <div id="message-slide">
+    <p>Reallyyyyy!!!!! yeyyyyyyyyyyy🥳🥳</p>
+    <video id="happy-video" loop muted>
+      <source src="https://agz-master.github.io/valentine/happy.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p id="love-message">yeyyyy!! I love youuu sooo muchhhhh😽😽</p>
+  </div>
+
+  <div class="cursor" id="custom-cursor"></div>
+
+  <script>
+    const noBtn = document.getElementById('no-btn');
+    const yesBtn = document.getElementById('yes-btn');
+    const valentineSlide = document.getElementById('valentine-slide');
+    const messageSlide = document.getElementById('message-slide');
+    const happyVideo = document.getElementById('happy-video');
+    const customCursor = document.getElementById('custom-cursor');
+
+    // Move the "No" button randomly within safe bounds
+    noBtn.addEventListener('mouseover', () => {
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20; // Keep some padding
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
+
+    // Transition to the next slide, trigger full-screen confetti, and play the video
+    yesBtn.addEventListener('click', () => {
+      valentineSlide.style.display = 'none';
+      messageSlide.style.display = 'flex';
+
+      // Confetti celebration
+      confetti({
+        particleCount: 1000,
+        spread: 360,
+        origin: { y: 0.5 },
+        zIndex: 9999
+      });
+
+      // Play the video with sound
+      happyVideo.play();
+      happyVideo.muted = false; // Ensure sound is enabled
+    });
+
+    // Custom cursor follow mouse
+    document.addEventListener('mousemove', (e) => {
+      customCursor.style.left = `${e.pageX}px`;
+      customCursor.style.top = `${e.pageY}px`;
+    });
+  </script>
+</body>
+</html>
